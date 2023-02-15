@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const { ifExist } = require("../controllers/auth.controller");
 const userModel = require("../models/user.model");
 
 const generateJWT = (uid) => {
