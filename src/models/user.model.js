@@ -32,12 +32,21 @@ const UserSchema = Schema({
   info_phone: {
     type: String,
   },
-
+  
   socials_id: {
     type: [
       {
         type: Schema.Types.ObjectId,
-        ref: "SocialsNetwork",
+        ref: "SocialNetwork",
+      },
+    ],
+  },
+
+  projects_id: {
+    type: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Project",
       },
     ],
     // permite null
@@ -45,7 +54,7 @@ const UserSchema = Schema({
 });
 
 UserSchema.method("toJSON", function () {
-  const { __v, _id, password, socials_id, ...object } = this.toObject();
+  const { __v, _id, password, ...object } = this.toObject();
   object.uid = _id;
   return object;
 });
