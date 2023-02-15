@@ -90,7 +90,18 @@ const renewToken = async (req, res) => {
   const uid = req.uid;
   console.log(uid)
   const token = await generateJWT(uid);
-  const user = await User.findById(uid);
+  const user = await User.findById(uid, "user email role", { new: true, 
+    populate: [
+      {
+        path: "socials_id",
+        select: "name url",
+      },
+      {
+        path: "projects_id",
+        select: "name description",
+      },
+    ],
+   }, )
   res.status(200).json({
     ok: true,
     user,
