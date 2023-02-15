@@ -1,28 +1,23 @@
 const { Schema, model } = require("mongoose");
 
-const SocialsNetwork = Schema({
+const SocialsNetworkSchema = Schema({
   
   name : {
     type: String,
     required: true,
   },
 
-  description: {
+  url : {
     type: String,
-    required: true,
-  },
-
-  techs: {
-    type: [String],
     required: true,
   },
 
 });
 
-SocialsNetwork.method("toJSON", function () {
+SocialsNetworkSchema.method("toJSON", function () {
   const { __v, _id, ...object } = this.toObject();
   object.uid = _id;
   return object;
 });
 
-module.exports = model("SocialsNetwork", SocialsNetwork);
+module.exports = model("SocialsNetwork", SocialsNetworkSchema);
