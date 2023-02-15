@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const SocialsNetworkSchema = Schema({
+const SocialNetworkSchema = Schema({
   
   name : {
     type: String,
@@ -14,10 +14,11 @@ const SocialsNetworkSchema = Schema({
 
 });
 
-SocialsNetworkSchema.method("toJSON", function () {
+SocialNetworkSchema.method("toJSON", function () {
   const { __v, _id, ...object } = this.toObject();
   object.uid = _id;
   return object;
 });
 
-module.exports = model("SocialsNetwork", SocialsNetworkSchema);
+
+module.exports = model("SocialNetwork", SocialNetworkSchema);
