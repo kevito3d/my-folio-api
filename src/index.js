@@ -25,6 +25,7 @@ app.use(require("morgan")("dev"));
 
 //Rutas
 app.use("/api/user", require("./routes/auth"));
+app.use("/api/user", require("./routes/user"));
 
 //Servidor
 app.listen(process.env.PORT || 3000
