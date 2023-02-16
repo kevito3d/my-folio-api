@@ -24,8 +24,8 @@ app.use(cors());
 app.use(require("morgan")("dev"));
 
 //Rutas
-app.use("/api/user", require("./routes/auth"));
-app.use("/api/user", require("./routes/user"));
+app.use("/api/user", require("./routes/auth.route"));
+app.use("/api/user", require("./routes/user.route"));
 app.use("/api/project", require("./routes/project.route"));
 
 //Servidor

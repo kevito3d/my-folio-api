@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { updateInfo } = require("../controllers/user.controller");
+const { updateInfo, getInfo } = require("../controllers/user.controller");
 const validate = require("../middlewares/validate");
 const { validateJWT } = require("../middlewares/validate-jwt");
 const router = Router();
@@ -14,5 +14,7 @@ router.put("/:uid",[
     check("projects_id", "The projects id is required").not().isEmpty(),
     validate()
 ], validateJWT,  updateInfo);
+
+router.get("/:uid", getInfo);
 
 module.exports = router;

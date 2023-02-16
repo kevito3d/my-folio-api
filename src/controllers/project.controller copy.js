@@ -1,15 +1,15 @@
-const Project = require("../models/project.model");
+const SocialNetwork = require("../models/socialNetwork.model");
 
-const createProject = async (req, res) => {
-  const { name, description, techs } = req.body;
+const createSn = async (req, res) => {
+  const { name, url } = req.body;
 
   try {
-    let project = new Project({ name, description, techs });
-    await project.save();
+    let ns = new SocialNetwork({ name, url });
+    await ns.save();
 
     res.status(200).json({
       ok: true,
-      project,
+      social_network: ns,
     });
   } catch (error) {
     console.log(error);
@@ -23,20 +23,20 @@ const createProject = async (req, res) => {
 
 // put project
 
-const updateProject = async (req, res) => {
+const updateSn = async (req, res) => {
   const { id } = req.params;
-  const { name, description, techs } = req.body;
+  const { name, url } = req.body;
 
   try {
-    let project_updated = await Project.findByIdAndUpdate(
+    let sn_updated = await SocialNetwork.findByIdAndUpdate(
       id,
-      { name, description, techs },
+      { name, url },
       { new: true }
     );
 
     res.status(200).json({
       ok: true,
-      project_updated,
+      sn_updated,
     });
   } catch (error) {
     console.log(error);
@@ -49,15 +49,15 @@ const updateProject = async (req, res) => {
 };
 
 //delete project
-const deleteProject = async (req, res) => {
+const deleteSN = async (req, res) => {
   const { id } = req.params;
 
   try {
-    let project_deleted = await Project.findByIdAndDelete(id);
+    let sn_deleted = await SocialNetwork.findByIdAndDelete(id);
 
     res.status(200).json({
       ok: true,
-      project_deleted,
+      sn_deleted: sn_deleted,
     });
   } catch (error) {
     console.log(error);
@@ -70,15 +70,15 @@ const deleteProject = async (req, res) => {
 };
 
 //get project
-const getProject = async (req, res) => {
+const getSn = async (req, res) => {
   const { id } = req.params;
 
   try {
-    let project = await Project.findById(id);
+    let sn = await SocialNetwork.findById(id);
 
     res.status(200).json({
       ok: true,
-      project,
+      social_network: sn,
     });
   } catch (error) {
     console.log(error);
@@ -90,10 +90,9 @@ const getProject = async (req, res) => {
   }
 };
 
-
 module.exports = {
-  createProject,
-  updateProject,
-  deleteProject,
-  getProject,
+  createSn,
+  updateSn,
+  deleteSN,
+  getSn,
 };

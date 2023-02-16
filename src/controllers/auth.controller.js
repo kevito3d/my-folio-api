@@ -10,7 +10,7 @@ const createUser = async (req, res) => {
 
   try {
     let user;
-    user = await ifExist(user, user)
+    user = await ifExist(user, user);
     if (user) {
       return res.status(400).json({
         ok: false,
@@ -40,22 +40,21 @@ const createUser = async (req, res) => {
 };
 
 const ifExist = async (user, email) => {
-
-
   const userExist = await User.findOne({
-    $or: [{  user }, { email }],
-  });
-  console.log(userExist)
+    $or: [{ user }, { email }],
+  })
+    .populate("projects_id", "name description techs")
+    .populate("socials_id", "name url");
+  console.log(userExist);
   return userExist;
 };
 
 const loginUser = async (req, res) => {
   const { user, password } = req.body;
-  console.log(user, password)
+  console.log(user, password);
   try {
     // find one user by email
-    let userExist =await  ifExist(user, user);
-
+    let userExist = await ifExist(user, user);
 
     if (!userExist) {
       return res.status(400).json({
@@ -88,9 +87,10 @@ const loginUser = async (req, res) => {
 
 const renewToken = async (req, res) => {
   const uid = req.uid;
-  console.log(uid)
+  console.log(uid);
   const token = await generateJWT(uid);
-  const user = await User.findById(uid, "user email role", { new: true, 
+  const user = await User.findById(uid, "user email role", {
+    new: true,
     populate: [
       {
         path: "socials_id",
@@ -101,7 +101,7 @@ const renewToken = async (req, res) => {
         select: "name description",
       },
     ],
-   }, )
+  });
   res.status(200).json({
     ok: true,
     user,
@@ -109,10 +109,9 @@ const renewToken = async (req, res) => {
   });
 };
 
-
 module.exports = {
   createUser,
   loginUser,
   renewToken,
-  ifExist
+  ifExist,
 };

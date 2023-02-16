@@ -50,6 +50,31 @@ const updateInfo = async (req, res) => {
   } catch (error) {}
 };
 
+// get info user by id
+const getInfo = async (req, res) => {
+  const { uid } = req.params;
+
+  try {
+    //retorna el usuario con datos completos de redes sociales y proyectos
+    let user = await User.findById(uid)
+      .populate("socials_id", "name url")
+      .populate("projects_id", "name description techs");
+
+    res.status(200).json({
+      ok: true,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Please contact the administrator",
+      error,
+    });
+  }
+};
+
 module.exports = {
   updateInfo,
+  getInfo
 };
